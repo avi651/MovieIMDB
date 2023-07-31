@@ -8,6 +8,11 @@
 import Foundation
 
 // MARK: - MovieResult
+
+struct MovieResponse: Codable{
+    let data: MovieResult
+}
+
 struct MovieResult: Codable {
     let results: [Movie]
 }

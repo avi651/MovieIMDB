@@ -7,7 +7,7 @@
 
 import Foundation
 
-class APIService : APIServiceProtocol {
+class APIService: APIServiceProtocol {
     
     public func fetchMovie(completion: @escaping(Result<MovieResult, APIError>) -> Void) {
         let url = getMovies()

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 class MovieListViewModel: ObservableObject{
     
@@ -14,12 +13,9 @@ class MovieListViewModel: ObservableObject{
     @Published var movies: [Movie] = [Movie]()
     @Published var state: FetchState = .good
     
-    // private let service = APIService()
-    var subscriptions = Set<AnyCancellable>()
-    
     let service: APIServiceProtocol
     
-    init(service: APIServiceProtocol = APIService()){
+    init(service: APIServiceProtocol = MovieService()){
         self.service = service
         fetchMovies()
     }

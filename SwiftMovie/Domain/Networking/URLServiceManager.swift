@@ -1,20 +1,14 @@
 //
-//  APIService.swift
+//  URLServiceManager.swift
 //  SwiftMovie
 //
-//  Created by Avinash Kumar on 24/07/23.
+//  Created by Avinash on 28/02/24.
 //
 
 import Foundation
 
-class APIService: APIServiceProtocol {
-    
-    public func fetchMovie(completion: @escaping(Result<MovieResult, APIError>) -> Void) {
-        let url = getMovies()
-        fetch(type: MovieResult.self, url: url, httpMethod: "GET", completion: completion)
-    }
-    
-    private func fetch<T: Decodable>(type: T.Type, url: URL?, httpMethod: String, completion: @escaping(Result<T,APIError>) -> Void) {
+class URLServiceManager {
+    public func fetch<T: Decodable>(type: T.Type, url: URL?, httpMethod: String, completion: @escaping(Result<T,APIError>) -> Void) {
         guard let url = url else {
             let error = APIError.badURL
             completion(Result.failure(error))
@@ -44,13 +38,5 @@ class APIService: APIServiceProtocol {
                 }
             }
         }.resume()
-    }
-    
-    private func getMovies() -> URL? {
-        let baseURL = "\(APIConstant.baseURL)/3/movie/now_playing"
-        let queryItems = [URLQueryItem(name: "api_key", value: APIConstant.apiKey)]
-        var components = URLComponents(string: baseURL)
-        components?.queryItems = queryItems
-        return components?.url
     }
 }

@@ -22,7 +22,9 @@ struct UpcomingCarousalMovieView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 16){
                     ForEach(movies) { movie in
-                        MovieBackdropCard(movie: movie).frame(width: 272, height: 200)
+                        NavigationLink(destination:PopularMovieDetails(movie: movie)){
+                            MovieBackdropCard(movie: movie).frame(width: 272, height: 200)
+                        }
                     }
                 }
             }

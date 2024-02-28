@@ -29,7 +29,7 @@ struct MovieView: View {
                     Group {
                         UpcomingCarousalMovieView(title: "Popular", movies: movieListViewModel.movies)
                     }.listRowInsets(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0))
-                }
+                }.navigationTitle("Popular Movies")
             }
         }
     }

@@ -16,13 +16,13 @@ final class MovieApiResourceUnitTests: XCTestCase {
         // ARRANGE
         let expectation = self.expectation(description: "ValidRequest_Returns_MoviesResponse")
         
-        let handler = APIService()
+        let handler = PopularMovieDataSource()
         
         handler.fetchMovie { (result) in
             XCTAssertNotNil(result)
             let _ = result.map { value in
-                XCTAssertEqual(298618, value.results.first?.id)
-                XCTAssertEqual("The Flash", value.results.first?.title)
+                XCTAssertEqual(1096197, value.results.first?.id)
+                XCTAssertEqual("No Way Up", value.results.first?.title)
             }
             expectation.fulfill()
         }
@@ -33,7 +33,7 @@ final class MovieApiResourceUnitTests: XCTestCase {
         // ARRANGE
         let expectation = self.expectation(description: "ValidRequest_Returns_NotEqualResponse")
         
-        let handler = APIService()
+        let handler = PopularMovieDataSource()
         
         handler.fetchMovie { (result) in
             XCTAssertNotNil(result)

@@ -28,6 +28,22 @@ struct MainView: View {
                     }
                 }
                 .tag(1)
+            FavoriteMovieView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "star")
+                        Text("Favorite")
+                    }
+                }
+                .tag(2)
+            ContactUsView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "person.crop.circle")
+                        Text("Contact Us")
+                    }
+                }
+                .tag(2)
             
         }
     }

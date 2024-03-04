@@ -27,7 +27,7 @@ struct MoviePosterCard: View {
         }.frame(width: 204, height: 306)
             .onAppear {
                 self.imageLoader.loadImage(with: self.movie.posterURL)
-        }
+            }
     }
 }
 

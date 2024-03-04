@@ -5,13 +5,23 @@ struct PopularMovieStickyHeader: View {
     var size: CGSize
     var safeArea: EdgeInsets
     @State private var offsetY: CGFloat = 0
+    internal var movieID: Int?
     let movie: Movie
+    @StateObject private var movieActorDetailViewModel = MovieActorDetailViewModel()
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
                 headerView()
                     .zIndex(1000)
                 moviePopularListCard()
+                if (movieActorDetailViewModel.cast.isEmpty) {
+                    LoadingView(isLoading: self.movieActorDetailViewModel.isLoading, error: self.movieActorDetailViewModel.error) {
+                        self.movieActorDetailViewModel.loadMore(movieNameID: movie.id)
+                    }
+                } else {
+                    PopularMovieDetailListView(movieCast: movieActorDetailViewModel.cast)
+                }
+               
             }
             .background {
                 ScrollDetector { offset in
@@ -20,8 +30,9 @@ struct PopularMovieStickyHeader: View {
                     
                 }
             }
-            
-        }
+        }.onAppear {
+                self.movieActorDetailViewModel.loadMore(movieNameID: movie.id)
+            }
     }
     
     // Header View

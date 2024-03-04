@@ -12,9 +12,12 @@ struct MovieView: View {
     @StateObject var movieListViewModel = MovieListViewModel()
     
     var body: some View {
+        
         NavigationView {
             if movieListViewModel.movies.count == 0 {
-                LoadingView(state: movieListViewModel.state, loadMore: {}, retryAction: movieListViewModel.loadMore)
+                LoadingView(isLoading: self.movieListViewModel.isLoading, error: self.movieListViewModel.error) {
+                    self.movieListViewModel.loadMore()
+                }
             } else {
                 List {
                     Group {
@@ -29,7 +32,9 @@ struct MovieView: View {
                     Group {
                         UpcomingCarousalMovieView(title: "Popular", movies: movieListViewModel.movies)
                     }.listRowInsets(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0))
-                }.navigationTitle("Popular Movies")
+                }.navigationTitle("Popular Movies").onAppear {
+                    self.movieListViewModel.loadMore()
+                }
             }
         }
     }

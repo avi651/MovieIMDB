@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MovieService: APIServiceProtocol {
+class PopularMovieDataSource: APIServiceProtocol {
     
     public func fetchMovie(completion: @escaping(Result<MovieResult, APIError>) -> Void) {
         let url = getMovies()

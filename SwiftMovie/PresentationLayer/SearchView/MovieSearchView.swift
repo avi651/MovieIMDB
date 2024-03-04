@@ -8,8 +8,31 @@
 import SwiftUI
 
 struct MovieSearchView: View {
+    @StateObject var movieSearch = SearchMovieViewModel()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                SearchBarView(placeholder: "Search movies", text: self.$movieSearch.query)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+                LoadingView(isLoading: self.movieSearch.isLoading, error: self.movieSearch.error) {
+                    self.movieSearch.loadMore(movieName: self.movieSearch.query)
+                }
+                
+                if self.movieSearch.searchMovie != nil {
+                    ForEach(self.movieSearch.searchMovie!){ serchMovie in
+                        VStack(alignment: .leading) {
+                            Text(serchMovie.title)
+                            Text(serchMovie.releaseDate)
+                        }
+                        
+                    }
+                }
+                
+            }.navigationBarTitle("Search Movies").resignKeyboardOnDragGesture()
+                .onAppear {
+                    self.movieSearch.startObserve()
+                }
+        }
     }
 }
 
